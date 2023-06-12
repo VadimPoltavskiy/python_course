@@ -20,5 +20,6 @@ for i in list_1:
             list_3.append(i)
 list_3.sort()
 list_3 =list(set(list_3))
+list_3.sort()
 for k in list_3:
     print(k, end= " ")

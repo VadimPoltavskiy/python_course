@@ -1,47 +1,61 @@
-def fib(n):
-    if n in [1, 2]:
-        return 1
-    return fib(n - 1) + fib(n - 2)
-list_1 = []
-for i in range(1, 10):
-    list_1.append(fib(i - 2))
-print(list_1) # [1, 1, 2, 3, 5, 8, 13, 21, 34]
+def f(x):
+    return x ** 2
+print(f(2))
+
+def f(x):
+    return x ** 2
+g = f
+
+def f(x):
+    return x ** 2
+g = f
+print(f(4)) # 16
+print(g(4)) # 16
+
+def calc1(x):
+    return x + 10
+print(calc1(10)) # 20
+
+def calc2(x):
+    return x * 10
+def math(op, x):
+    print(op, x)
+math(calc2, 10) # 100
+
+def sum(x, y):
+    return x + y
+def mylt(x, y):
+    return x * y
+
+def calc(op, a, b):
+    print(op(a, b))
+calc(mylt, 4, 5) # 20
+
+def sum(x, y):
+    return x + y
+f = sum
+calc(f, 4, 5) # 9
+
+def sum(x, y):
+    return x + y # ⇔ (равносильно) sum = lambda x, y: x + y
+
+calc(lambda x, y: x + y, 4, 5) # 9
+
+data = [1, 2, 3, 5, 8, 15, 23, 38]
+out = []
+for i in data :
+    if i % 2 == 0:
+        out.append((i, i ** 2))
+print(out)
+
+def select(f, col):
+    return [f(x) for x in col]
+def where(f, col):
+    return [x for x in col if f(x)]
+data = [1, 2, 3, 5, 8, 15, 23, 38]
+res = select(int, data)
+res = where(lambda x: x % 2 == 0, res)
+print(res) # [2, 8, 38]
+res = list(select(lambda x: (x, x ** 2), res))
 
 
-def quicksort(array):
-    if len(array) < 2:
-        return array
-    else:
-        pivot = array[0]
-        less = [i for i in array[1:] if i <= pivot]
-        greater = [i for i in array[1:] if i > pivot]
-        return quicksort(less) + [pivot] + quicksort(greater)
-print(quicksort([10, 5, 2, 3]))
-
-def merge_sort(nums):
-    if len(nums) > 1:
-        mid = len(nums) // 2
-        left = nums[:mid]
-        right = nums[mid:]
-    merge_sort(left)
-    merge_sort(right)
-    i = j = k = 0
-    while i < len(left) and j < len(right):
-        if left[i] < right[j]:
-            nums[k] = left[i]
-            i += 1
-        else:
-             nums[k] = right[j]
-            j += 1
-        k += 1
-    while i < len(left):
-        nums[k] = left[i]
-        i += 1
-        k += 1
-    while j < len(right):
-        nums[k] = right[j]
-        j += 1
-        k += 1
-nums = [38, 27, 43, 3, 9, 82, 10]
-merge_sort(nums)
-print(nums)
